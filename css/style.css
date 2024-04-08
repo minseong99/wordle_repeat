@@ -1,0 +1,8 @@
+@import "main.css";
+@import "header.css";
+@import "footer.css";
+
+:root {
+  --main-border-color: rgb(211, 214, 218);
+  --key-board-color: rgb(211, 214, 218);
+}
