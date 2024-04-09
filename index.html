@@ -23,6 +23,7 @@
       </div>
     </header>
     <main>
+      <div id="timer">00:00</div>
       <div class="board-row row-0">
         <div class="board-block" data-index="00"></div>
         <div class="board-block" data-index="01"></div>
@@ -92,7 +93,7 @@
         <div class="key-board-block" data-key="L">L</div>
       </div>
       <div class="key-board-row row2">
-        <div class="key-board-block special" data-key="ENTER">ENTER</div>
+        <div class="key-board-block" id="special" data-key="Enter">ENTER</div>
         <div class="key-board-block" data-key="Z">Z</div>
         <div class="key-board-block" data-key="X">X</div>
         <div class="key-board-block" data-key="C">C</div>
@@ -100,10 +101,11 @@
         <div class="key-board-block" data-key="B">B</div>
         <div class="key-board-block" data-key="N">N</div>
         <div class="key-board-block" data-key="M">M</div>
-        <div class="key-board-block special" data-key="BACK">
-          <img src="assets/back.svg" alt="" />
+        <div class="key-board-block" id="special" data-key="Backspace">
+          <img src="assets/back.svg" alt="" id="back" data-key="Backspace" />
         </div>
       </div>
     </footer>
+    <script src="js/index.js"></script>
   </body>
 </html>
