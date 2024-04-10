@@ -23,3 +23,39 @@ main {
   font-size: 25px;
   font-weight: bold;
 }
+
+.currect {
+  animation: bigger 1s ease-in-out forwards;
+}
+
+.false {
+  animation: snake 0.5s ease-in-out infinite;
+  animation-delay: -10s;
+}
+
+@keyframes bigger {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(2);
+  }
+}
+
+@keyframes snake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(3px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

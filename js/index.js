@@ -2,15 +2,38 @@ const currect = "APPLE";
 let index = 0;
 let attempts = 0;
 let timer;
+let isCurrect = false;
 
 function appStart() {
+  const message = (message) => {
+    const div = document.createElement("div");
+    div.innerText = message;
+    div.style =
+      "display:flex; justify-content:center; align-items:center; position:absolute; top:40vh; left:42%; background-color:black; width:200px; height:100px; color: white";
+    document.body.appendChild(div);
+  };
+  const falseAnimation = () => {
+    // for (let i = 0; i <= attempts; i++) {
+    //   for (let j = 0; j < index; j++) {
+    //     const block = document.querySelector(
+    //       `.board-block[data-index='${i}${j}'`
+    //     );
+    //     block.classList.add("false");
+    //   }
+    // }
+    const block = document.querySelector("main");
+    block.classList.add("false");
+    message("틀렸습니다ㅜㅜ");
+  };
+  const currectAnimation = () => {
+    const block = document.querySelector(".board-row");
+    block.classList.add("currect");
+    message("정답입니다!!");
+  };
   //add
   const displayGameOver = () => {
-    const div = document.createElement("div");
-    div.innerText = "게임이 종료되었습니다.";
-    div.style =
-      "display:flex; justify-content:center; align-items:center; position:absolute; top:40vh; left:42%; background-color:white; width:200px; height:100px;";
-    document.body.appendChild(div);
+    if (isCurrect) currectAnimation();
+    else falseAnimation();
   };
 
   const gameOver = () => {
@@ -38,7 +61,29 @@ function appStart() {
   };
 
   const handleEnterKey = () => {
+    const blockAnimation = (block, color) => {
+      block.animate(
+        // keyframes
+        [
+          { transform: "rotateY(360deg)" },
+          {
+            transform: "rotateY(0deg)",
+            backgroundColor: `${color}`,
+            color: "white",
+          },
+        ],
+        // options
+        {
+          duration: 500,
+          delay: 0,
+          easing: "ease-in",
+          fill: "forwards",
+        }
+      );
+    };
     // correct check
+
+    let keyboardColor = "";
     let currectCount = 0;
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
@@ -54,29 +99,32 @@ function appStart() {
 
       if (blockChar === currectChar) {
         currectCount += 1;
-        block.style.background = "#6AAA64";
-        keyboardBlock.style.background = "#6AAA64";
+
+        keyboardBlock.style.backgroundColor = "#6AAA64";
         keyboardBlock.dataset.currect = "true";
+        color = "#6AAA64";
       } else if (currect.includes(blockChar)) {
-        block.style.background = "#C9B458";
+        color = "#C9B458";
         if (keyboardBlock.dataset.currect !== "true") {
-          keyboardBlock.style.background = "#C9B458";
+          keyboardBlock.style.backgroundColor = "#C9B458";
           keyboardBlock.dataset.exist = "true";
         }
       } else {
-        block.style.background = "#787C7E";
-
+        color = "#787C7E";
         if (
           keyboardBlock.dataset.currect !== "true" &&
           keyboardBlock.dataset.exist !== "true"
         )
-          keyboardBlock.style.background = "#787C7E";
+          keyboardBlock.style.backgroundColor = "#787C7E";
       }
-      block.style.color = "white";
       keyboardBlock.style.color = "white";
+      blockAnimation(block, color);
     }
-    if (currectCount === 5) gameOver();
-    else nextLine();
+
+    if (currectCount === 5) {
+      isCurrect = true;
+      gameOver();
+    } else nextLine();
   };
 
   const handleKeydown = (event) => {
